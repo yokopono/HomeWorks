@@ -14,6 +14,7 @@ public class Main extends JFrame{
     private JButton addSkladButton;
     private JButton removeSkladButton;
     private JPanel panel;
+    private JButton selectTovarOnSkladButton;
 
     public Main() {
         setContentPane(panel);
@@ -52,6 +53,12 @@ public class Main extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 ShowResultSelectTovarNaSklade formShowResultSelectTovarNaSklade = new ShowResultSelectTovarNaSklade();
+            }
+        });
+        selectTovarOnSkladButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SelectTovarOnSklad formSelectTovarOnSklad = new SelectTovarOnSklad();
             }
         });
     }

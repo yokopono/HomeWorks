@@ -2,35 +2,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class InsertData {
-    static final String DB_DRIVER = "org.postgresql.Driver";
-    static final String DB_CONNECTION = "jdbc:postgresql://localhost:5432/SKLAD";
-    static final String DB_USER = "postgres";
-    static final String DB_PASSWORD = "dtfXcNKu4";
 
     public static void main(String[] args) {
 
-    }
-
-
-    private static Connection getDBConnection() {
-        Connection dbConnection = null;
-        try {
-            Class.forName(DB_DRIVER);
-        } catch (ClassNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            dbConnection = DriverManager.getConnection(DB_CONNECTION, DB_USER,DB_PASSWORD);
-            return dbConnection;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return dbConnection;
     }
 
     public static void insertDataInTableSklad(String s) throws SQLException, IOException {
@@ -46,7 +24,7 @@ public class InsertData {
         String insertTableSQL = "INSERT INTO sklad(name) VALUES" +"('"+ valueName+"')";
 
         try {
-            dbConnection = getDBConnection();
+            dbConnection = Connect.getDBConnection();
             statement = dbConnection.createStatement();
 
             // выполнить SQL запрос
@@ -81,7 +59,7 @@ public class InsertData {
                 + valuePrice+"','"+ valueKolichestvo+"','"+ valueSkladID+"')";
 
         try {
-            dbConnection = getDBConnection();
+            dbConnection = Connect.getDBConnection();
             statement = dbConnection.createStatement();
 
             // выполнить SQL запрос
