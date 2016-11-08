@@ -9,7 +9,7 @@ public class Connect {
     static final String DB_DRIVER = "org.postgresql.Driver";
     static final String DB_CONNECTION = "jdbc:postgresql://localhost:5432/SKLAD";
     static final String DB_USER = "postgres";
-    static final String DB_PASSWORD = "dtfXcNKu4";
+    static final String DB_PASSWORD = "12345678";
     private static Connection dbConnection = null;
 
     public static Connection getDBConnection() {
