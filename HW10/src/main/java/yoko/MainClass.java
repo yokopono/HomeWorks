@@ -17,7 +17,6 @@ import java.io.InputStreamReader;
 public class MainClass {
 
     @PersistenceContext
-    static
     EntityManager em;
 
     public static void main(String[] args) {
@@ -28,7 +27,7 @@ public class MainClass {
 
     }
 
-    public static String showSumScoreStudent(String surname) {
+    public  String showSumScoreStudent(String surname) {
         Query query = em.createQuery("SELECT COUNT(score.score) FROM Score score, Student student WHERE " +
                 "student.surname LIKE :surname");
         query.setParameter("surname", surname);
@@ -36,13 +35,13 @@ public class MainClass {
         return s.valueOf(query.getSingleResult());
     }
 
-    public static String showAvgScoreStudent(String surname) {
+    public String showAvgScoreStudent(String surname) {
         Query query = em.createQuery("SELECT AVG(score.score) FROM Score score, Student student WHERE " +
                 "student.surname LIKE :surname", Student.class);
         query.setParameter("surname", surname);
         return String.valueOf(query.getResultList());
     }
-    public static String showScoreStudent(String surname, String subject_type) {
+    public String showScoreStudent(String surname, String subject_type) {
         Query query = em.createQuery("SELECT score.score FROM Score score, Student student WHERE " +
                 "student.surname LIKE :surname AND score.subject_type LIKE :subject_type", Student.class);
         query.setParameter("surname", surname);
