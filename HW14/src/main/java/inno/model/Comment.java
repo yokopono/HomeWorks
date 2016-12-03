@@ -18,10 +18,25 @@ public class Comment {
     @JoinColumn(name = "post_id")
     private Post post;
 
-
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return id;

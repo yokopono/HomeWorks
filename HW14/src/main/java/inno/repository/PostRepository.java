@@ -16,7 +16,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("select c from Comment c where c.post = :post")
     List<Comment> findCommentsByPost(@Param("post") Post post);
 
-    Post findПожалуйстаByTitleAndTextLike(String title, String text);
+    Post findByTitleAndTextLike(String title, String text);
 
     List<Post> findByCommentsTextContains(String text);
 

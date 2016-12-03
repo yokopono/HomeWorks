@@ -11,7 +11,7 @@
     <context:component-scan base-package="inno.util"/>
 
     <mvc:annotation-driven/>
-    <!--Для статики-->
+    <!--&lt;!&ndash;Для статики&ndash;&gt;-->
     <!--<mvc:resources mapping="/resources/**" location="statics"/>-->
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

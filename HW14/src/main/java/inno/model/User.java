@@ -27,8 +27,19 @@ public class User {
 
     private String surname;
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setCommentss(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Post> posts;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Comment> comments;
 
     @ManyToMany
     @JoinTable(name = "users_roles", joinColumns = {

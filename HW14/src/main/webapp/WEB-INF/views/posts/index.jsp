@@ -14,7 +14,7 @@
 </head>
 <body>
 <h1>Добро пожаловать в мой блог, <security:authentication property="principal.name"/></h1>
-
+<a href="/logout">Выйти</a>
 <form action="/posts" method="get">
     <input type="text" name="phrase" width="600px">
     <input type="submit" value="Search">

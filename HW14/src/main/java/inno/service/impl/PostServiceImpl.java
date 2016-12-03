@@ -14,6 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class PostServiceImpl implements PostService {
 
     @Autowired
+    PostRepository postRepository;
+
+    @Autowired
     PostRepository repository;
 
     @Transactional
@@ -21,7 +24,6 @@ public class PostServiceImpl implements PostService {
     public void savePost(Post post) {
         User user = SecurityUtils.getCurrentUser();
         post.setUser(user);
-        // TODO использовать PostForm
-        repository.save(post);
+        postRepository.save(post);
     }
 }
