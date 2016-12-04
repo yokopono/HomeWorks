@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/posts/${id}")
+@RequestMapping("posts/comments")
 public class CommentController {
 
     @Autowired
@@ -33,73 +33,73 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-    @RequestMapping
-    public String getAllPosts(@RequestParam(value = "phrase", required = false) String phrase, ModelMap map) {
-        List<Post> posts = postRepository.findAll();
-        if (phrase != null) {
-            posts = posts.stream().filter(p -> p.getText().contains(phrase)).collect(Collectors.toList());
-        }
-        map.addAttribute("posts", posts);
+//    @RequestMapping
+//    public String getAllPosts(@RequestParam(value = "phrase", required = false) String phrase, ModelMap map) {
+//        List<Post> posts = postRepository.findAll();
+//        if (phrase != null) {
+//            posts = posts.stream().filter(p -> p.getText().contains(phrase)).collect(Collectors.toList());
+//        }
+//        map.addAttribute("posts", posts);
+//        return "posts/index";
+//    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String addNewCommentPage(ModelMap map) {
+        map.addAttribute("comment", new Comment());
         return "posts/index";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String addNewPostPage(ModelMap map) {
-        map.addAttribute("post", new Post());
-        return "posts/add";
-    }
-
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addNewPost(@ModelAttribute @Valid Post post, BindingResult result) {
+    public String addNewPost(@ModelAttribute @Valid Comment comment, BindingResult result) {
         if (result.hasErrors()) {
-            return "posts/add";
+            return "comments/add";
         }
-        postService.savePost(post);
+        commentService.saveComment(comment);
         return "redirect:/posts";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String showPost(@PathVariable("id") Long id, ModelMap map) {
-        Post post = postRepository.findOne(id);
-        map.addAttribute("post", post);
+    public String showComment(@PathVariable("id") Long id, ModelMap map) {
+        Comment comment = commentRepository.findOne(id);
+        map.addAttribute("comment", comment);
         return "/posts/show";
     }
 
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
-    public String deletePost(@PathVariable("id") Long id) {
-        Post post = postRepository.findOne(id);
-        if (!userCanEditPost(post)) {
-            throw new AccessDeniedException("Acces denied");
+    public String deleteComment(@PathVariable("id") Long id) {
+        Comment comment = commentRepository.findOne(id);
+        if (!userCanEditComment(comment)) {
+            throw new AccessDeniedException("Access denied ne rabotaet");
         }
-        postRepository.delete(post);
+        commentRepository.delete(comment);
         return "redirect:/posts";
     }
 
     //    @PostAuthorize("isAuthorized() and #map['post'].user.id eq principal.id")
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
-    public String editPost(@PathVariable("id") Long id, ModelMap map) {
-        Post post = postRepository.findOne(id);
-        if (!userCanEditPost(post)) {
-            throw new AccessDeniedException("Acces denied");
+    public String editComment(@PathVariable("id") Long id, ModelMap map) {
+        Comment comment = commentRepository.findOne(id);
+        if (!userCanEditComment(comment)) {
+            throw new AccessDeniedException("Acces denied  ne rabotaet");
         }
-        map.addAttribute("post", post);
-        return "posts/edit";
+        map.addAttribute("comment", comment);
+        return "comments/edit";
     }
 
     @RequestMapping(value = "/{id}/save", method = RequestMethod.POST)
-    public String savePost(@ModelAttribute @Valid Post post, BindingResult result) {
+    public String savePost(@ModelAttribute @Valid Comment comment, BindingResult result) {
         if (result.hasErrors()) {
             return "posts/edit";
         }
-        postService.savePost(post);
+        commentService.saveComment(comment);
 
 
         return "redirect:/posts";
     }
 
-    private boolean userCanEditPost(Post post) {
+    private boolean userCanEditComment(Comment comment) {
         User currentUser = SecurityUtils.getCurrentUser();
-        return currentUser != null && post.getUser().getId().equals(currentUser.getId());
+        return currentUser != null && comment.getUser().getId().equals(currentUser.getId());
     }
 }

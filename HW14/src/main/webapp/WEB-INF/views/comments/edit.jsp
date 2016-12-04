@@ -17,7 +17,7 @@
 
 <h1>${comment.text}</h1>
 
-<form:form action="/posts/${post.id}/${comment.id}/save" method="post" modelAttribute="post">
+<form:form action="/posts/comments/${comment.id}/save" method="post" modelAttribute="comment">
     <table>
         <tr>
             <td><form:label path="text">Текст</form:label></td>

@@ -36,8 +36,8 @@
     <small>Автор: ${comment.user.fullName}</small>
     <security:authentication property="principal.id" var="user_id"/>
     <security:authorize access="${user_id eq comment.user.id}">
-        <a href="/posts/${post.id}/${comment.id}/delete">Удалить</a>
-        <a href="/posts/${post.id}/${comment.id}/edit">Редактировать</a>
+        <a href="comments/${comment.id}/delete">Удалить</a>
+        <a href="comments/${comment.id}/edit">Редактировать</a>
     </security:authorize>
     <hr>
 </c:forEach>
